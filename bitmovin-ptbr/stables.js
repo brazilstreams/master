@@ -1,6 +1,6 @@
 function override(url){
-    if (url.indexOf("licensing.bitmovin.com/licensing") > -1) return "/v1/bitmovin/licensing";
-    if (url.indexOf("licensing.bitmovin.com/impression") > -1) return "/v1/bitmovin/impression";
+    if (url.indexOf("licensing.bitmovin.com/licensing") > -1) return "/v1/bitmovin/licensing/";
+    if (url.indexOf("licensing.bitmovin.com/impression") > -1) return "/v1/bitmovin/impression/";
     return url;
 }
 
