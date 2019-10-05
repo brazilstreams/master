@@ -136,7 +136,8 @@ function makeRequest($url) {
   //If an `origin` header is present in the request, rewrite it to point to the correct origin.
   if (in_array("origin", $removedHeaders)) {
     $urlParts = parse_url($url);
-    $port = $urlParts;
+    $port = $urlParts["port"];
+    $curlRequestHeaders[] = "Origin: " . $urlParts["scheme"] . "://" . $urlParts["host"] . (empty($port) ? "" : ":" . $port);
   };
   curl_setopt($ch, CURLOPT_HTTPHEADER, $curlRequestHeaders);
 
@@ -275,7 +276,7 @@ if (isset($_POST["miniProxyFormAction"])) {
 }
 if (empty($url)) {
     if (empty($startURL)) {
-      die("<html><head><title>Forbidden</title></head><body>Forbidden</body></html>");
+      die("<html><head><title>Forbidden</title></head><body><h1>Not Found</h1></body></html>");
     } else {
       $url = $startURL;
     }
