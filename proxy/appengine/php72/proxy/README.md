@@ -1,0 +1,1 @@
+# Hello World on App Engine Standard for PHP 7.2
