@@ -1,0 +1,57 @@
+{
+  "name": "corsify",
+  "version": "2.1.4",
+  "description": "A tiny transparent proxy. The benefit: it adds the CORS-headers! Why? It prevents Cross Domain Errors.",
+  "main": "./server/main.js",
+  "scripts": {
+    "verify": "yarn run lint && yarn run test && echo \"verified $npm_package_name v$npm_package_version\" > ./VERSION.md && cat VERSION.md",
+    "lint": "./node_modules/.bin/eslint */*.js && ./node_modules/.bin/stylelint ./views/css/styles.css",
+    "build": "./node_modules/.bin/postcss ./views/css/styles.css > ./views/css/build.css",
+    "prestart": "yarn run verify",
+    "start": "NPM_CONFIG_PRODUCTION=false; NODE_ENV=production forever -o /dev/null -e /dev/null ./server/main.js",
+    "dev": "NPM_CONFIG_PRODUCTION=false; NODE_ENV=development ./node_modules/.bin/nodemon -e css,js,mustache ./server/main.js",
+    "nyc": "./node_modules/.bin/nyc --clean ./node_modules/.bin/mocha --exit",
+    "report": "./node_modules/.bin/nyc report --reporter=lcov --reporter=html",
+    "coverage": "./node_modules/.bin/nyc check-coverage --lines 100 --functions 100 --branches 100 --statements 100",
+    "test": "yarn nyc && yarn report && yarn coverage"
+  },
+  "engines" : { "node" : ">=8.4.0", "yarn":"^1.3.0" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/martinkr/corsify"
+  },
+  "homepage": "https://github.com/martinkr/corsify",
+  "issues": "https://github.com/martinkr/corsify/issues",
+  "keywords": [
+    "cors",
+    "proxy",
+    "express",
+    "ajax",
+    "xhr",
+    "request",
+    "corsify",
+    "node"
+  ],
+  "author": "Martin Krause <github@mkrause.info> (http://martinkr.github.io)",
+  "license": "MIT",
+  "dependencies": {
+    "compression": "^1.7.1",
+    "express": "^4.16.0",
+    "forever": "^0.15.3",
+    "mustache": "^2.3.0",
+    "mustache-express": "^1.2.5",
+    "request": "^2.82.0"
+  },
+  "devDependencies": {
+    "nyc": "^14.1.1",
+    "chai": "^4.1.2",
+    "cssnano": "^4.0.0",
+    "cssnano-preset-advanced": "^4.0.0",
+    "eslint": "^4.18.2",
+    "mocha": "^5.0.3",
+    "nodemon": "^1.14.11",
+    "postcss-cli": "^6.0.0",
+    "stylelint": "^9.8.0",
+    "supertest": "^3.0.0"
+  }
+}
